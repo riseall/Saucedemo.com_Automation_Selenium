@@ -1,8 +1,12 @@
 const { Builder, By, Key, until } = require("selenium-webdriver");
 const assert = require("assert");
+const chrome = require("selenium-webdriver/chrome");
 
 async function sauceDemoLoginTest() {
-  let driver = await new Builder().forBrowser("chrome").build();
+  let options = new chrome.Options();
+  options.addArguments("--headless=new");
+
+  let driver = await new Builder().setChromeOptions(options).build();
 
   try {
     await driver.get("https://www.saucedemo.com/");
@@ -19,12 +23,13 @@ async function sauceDemoLoginTest() {
       true,
       "Title does not include Swag Labs"
     );
-    console.log(title);
 
     await driver
       .findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']"))
       .click();
     await driver.sleep(5000);
+
+    console.log("Test Pass");
   } finally {
     await driver.quit();
   }
