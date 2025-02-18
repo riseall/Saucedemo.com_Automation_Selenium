@@ -6,7 +6,10 @@ async function sauceDemoLoginTest() {
   let options = new chrome.Options();
   options.addArguments("--headless=new");
 
-  let driver = await new Builder().setChromeOptions(options).build();
+  let driver = await new Builder()
+    .forBrowser("chrome")
+    .setChromeOptions(options)
+    .build();
 
   try {
     await driver.get("https://www.saucedemo.com/");
