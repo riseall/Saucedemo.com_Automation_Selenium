@@ -1,0 +1,21 @@
+{
+  "baseUrl": "https://www.saucedemo.com",
+  "validUser": {
+    "username": "standard_user",
+    "password": "secret_sauce"
+  },
+  "invalidUser": {
+    "username": "",
+    "password": "secret_sauce"
+  },
+  "message": {
+    "expectedLoginError": "Epic sadface: Username is required",
+    "loginError": "Message does not include 'Epic sadface: Username is required'",
+    "expectedTitle": "Swag Labs",
+    "title": "Title does not include Swag Labs"
+  },
+  "log": {
+    "loginSuccess": "Login Testing Successfully",
+    "loginFailed": "Failed Login Testing Successfully"
+  }
+}

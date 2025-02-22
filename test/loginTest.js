@@ -1,8 +1,7 @@
-const { Builder, By } = require("selenium-webdriver");
-const assert = require("assert");
+const { Builder } = require("selenium-webdriver");
 const LoginPage = require("../pages/loginPage");
 const InventoryPage = require("../pages/inventoryPage");
-const { verify } = require("crypto");
+const data = require("../fixtures/dataFile.json");
 
 async function sauceDemoLoginTest() {
   describe("Saucedemo Login Test", function () {
@@ -23,31 +22,31 @@ async function sauceDemoLoginTest() {
       inventoryPage = new InventoryPage(driver);
 
       // Open Url
-      await loginPage.open("https://www.saucedemo.com");
+      await loginPage.open(data.baseUrl);
     });
 
     it("LG-001_Login Success", async function () {
-      await loginPage.login("standard_user", "secret_sauce");
+      await loginPage.login(data.validUser.username, data.validUser.password);
 
       // assertion
       await inventoryPage.verifyTitleText(
-        "Swag Labs",
-        "Title does not include Swag Labs"
+        data.message.expectedTitle,
+        data.message.title
       );
 
-      console.log("Login Testing Successfully");
+      console.log(data.log.loginSuccess);
     });
 
     it("LG-002_Login Failed With Empty username", async function () {
-      await loginPage.login("", "secret_sauce");
+      await loginPage.login(data.invalidUser.username, data.validUser.password);
 
       //assertion
       await loginPage.verifyLoginFailed(
-        "Epic sadface: Username is required",
-        "Message does not include 'Epic sadface: Username is required'"
+        data.message.expectedLoginError,
+        data.message.loginError
       );
 
-      console.log("Failed Login Testing Successfully");
+      console.log(data.log.loginFailed);
     });
 
     afterEach(async () => {
